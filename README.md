@@ -1,6 +1,4 @@
 # Ce script installe Docker, Docker-compose et Python
-
-* Créer un fichier script📄
 ```bash
 nano install-docker.sh
 ```
