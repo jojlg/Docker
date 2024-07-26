@@ -2,12 +2,12 @@
 
 * Créer un fichier script📄
 ```bash
-nano install_docker_python.sh
+nano install-docker.sh
 ```
 ⛔ Donner au système l’autorisation d’exécuter le script
 ```bash
-chmod +x install_docker_python.sh
+chmod +x install-docker.sh
 ```
 ▶️ Exécuter le script 
 ```bash
-./install_docker_python.sh
+./install-docker.sh
