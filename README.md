@@ -2,7 +2,7 @@
 
 ⛔ Donner au système l’autorisation d’exécuter le script
 ```bash
-chmod +x install-docker.sh
+chmod +x docker-install.sh
 ```
 ▶️ Exécuter le script 
 ```bash
