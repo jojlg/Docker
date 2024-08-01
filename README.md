@@ -6,5 +6,5 @@ chmod +x docker-install.sh
 ```
 ▶️ Exécuter le script 
 ```bash
-./install-docker.sh
+./docker-install.sh
 ```
