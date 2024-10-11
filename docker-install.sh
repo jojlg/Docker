@@ -37,4 +37,6 @@ sudo chmod +x /usr/local/bin/docker-compose
 # Vérifier l'installation de Docker Compose
 docker-compose --version
 
-echo "Installation de Docker, Python et Docker Compose terminée avec succès."
+echo "Installation de Docker, Python et Docker Compose terminée avec succès." 
+
+test
