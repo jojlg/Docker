@@ -38,5 +38,3 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 
 echo "Installation de Docker, Python et Docker Compose terminée avec succès." 
-
-test
