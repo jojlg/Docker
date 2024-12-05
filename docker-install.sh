@@ -22,6 +22,23 @@ sudo systemctl enable docker
 # Vérifie l'installation de Docker
 sudo systemctl status docker
 
+# Crée l'utilisateur docker et définir un mot de passe provisoire
+adduser --gecos "" docker
+echo "docker:password" | chpasswd
+
+# Ajoute l'utilisateur docker au groupe sudo et au groupe docker
+usermod -aG sudo docker
+usermod -aG docker docker
+chown -R docker:docker /home/docker/
+
+# Configure sudoers pour l'utilisateur docker
+echo "docker ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# Passe à l'utilisateur docker pour effectuer l'installation et les autres actions
+sudo -u docker bash << EOF
+# Mets à jour la liste des paquets
+sudo apt-get update -y
+
 # Installe Python et pip
 sudo apt-get install -y python3 python3-pip
 
@@ -37,4 +54,17 @@ sudo chmod +x /usr/local/bin/docker-compose
 # Vérifier l'installation de Docker Compose
 docker-compose --version
 
-echo "Installation de Docker, Python et Docker Compose terminée avec succès." 
+# Crée le répertoire .ssh et générer la clé SSH
+mkdir -p /home/docker/.ssh
+cd /home/docker/.ssh
+
+# Génére une clé SSH ed25519 (le nom sera 'id_srv-docker')
+ssh-keygen -t ed25519 -f id_srv-docker -N ""
+
+# Ajoute la clé publique au fichier authorized_keys
+cat id_srv-docker.pub >> authorized_keys
+
+EOF
+
+echo "Installation de Docker, Python et Docker Compose terminée avec succès."
+echo "Configuration SSH pour l'utilisateur 'docker' terminée. L'utilisateur 'docker' est prêt à être utilisé, son mot de passe sera à modifier à la prochaine connexion."
