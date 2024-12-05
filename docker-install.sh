@@ -1,3 +1,17 @@
+# Crée l'utilisateur docker et définir un mot de passe provisoire
+sudo adduser --gecos "" docker
+echo "docker:password" | sudo chpasswd
+
+# Ajoute l'utilisateur docker au groupe sudo et au groupe docker
+sudo usermod -aG sudo docker
+sudo usermod -aG docker docker
+sudo chown -R docker:docker /home/docker/
+
+# Configure sudoers pour l'utilisateur docker
+echo "docker ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
+
+# Passe à l'utilisateur docker pour effectuer l'installation et les autres actions
+sudo -u docker bash << EOF
 # Mise à jour les paquets existants
 sudo apt-get update
 
@@ -21,23 +35,6 @@ sudo systemctl enable docker
 
 # Vérifie l'installation de Docker
 sudo systemctl status docker
-
-# Crée l'utilisateur docker et définir un mot de passe provisoire
-adduser --gecos "" docker
-echo "docker:password" | chpasswd
-
-# Ajoute l'utilisateur docker au groupe sudo et au groupe docker
-usermod -aG sudo docker
-usermod -aG docker docker
-chown -R docker:docker /home/docker/
-
-# Configure sudoers pour l'utilisateur docker
-echo "docker ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-
-# Passe à l'utilisateur docker pour effectuer l'installation et les autres actions
-sudo -u docker bash << EOF
-# Mets à jour la liste des paquets
-sudo apt-get update -y
 
 # Installe Python et pip
 sudo apt-get install -y python3 python3-pip
